@@ -1,6 +1,6 @@
 package com.ymmihw.machine.learning.mcts.mcts.montecarlo;
 
-import java.util.ArrayList;
+import static java.util.stream.Collectors.toList;
 import java.util.List;
 import com.ymmihw.machine.learning.mcts.mcts.tictactoe.Board;
 import com.ymmihw.machine.learning.mcts.mcts.tictactoe.Position;
@@ -35,14 +35,13 @@ public class State {
   }
 
   public List<State> getAllPossibleStates() {
-    List<State> possibleStates = new ArrayList<>();
     List<Position> availablePositions = this.board.getEmptyPositions();
-    availablePositions.forEach(p -> {
+    List<State> possibleStates = availablePositions.stream().map(e -> {
       State newState = new State(this.board);
       newState.setPlayer(getOpponent());
-      newState.getBoard().performMove(newState.getPlayer(), p);
-      possibleStates.add(newState);
-    });
+      newState.getBoard().performMove(newState.getPlayer(), e);
+      return newState;
+    }).collect(toList());
     return possibleStates;
   }
 

@@ -25,19 +25,13 @@ public class Node {
     children = new ArrayList<>();
   }
 
-  public Node(State state, Node parent, List<Node> children) {
-    this.state = state;
-    this.parent = parent;
-    this.children = children;
-  }
-
   public Node(Node node) {
     this.children = new ArrayList<>();
     this.state = new State(node.getState());
     if (node.getParent() != null)
       this.parent = node.getParent();
-    List<Node> childArray = node.getChildren();
-    for (Node child : childArray) {
+    List<Node> children = node.getChildren();
+    for (Node child : children) {
       this.children.add(new Node(child));
     }
   }
