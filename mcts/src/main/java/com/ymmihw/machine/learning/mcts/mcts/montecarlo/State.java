@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class State {
   private Board board;
-  private int playerNo;
+  private int player;
   private int visitCount;
   private double winScore;
 
@@ -21,7 +21,7 @@ public class State {
 
   public State(State state) {
     this.board = new Board(state.getBoard());
-    this.playerNo = state.getPlayerNo();
+    this.player = state.getPlayer();
     this.visitCount = state.getVisitCount();
     this.winScore = state.getWinScore();
   }
@@ -31,7 +31,7 @@ public class State {
   }
 
   int getOpponent() {
-    return 3 - playerNo;
+    return board.getOpponent(player);
   }
 
   public List<State> getAllPossibleStates() {
@@ -39,8 +39,8 @@ public class State {
     List<Position> availablePositions = this.board.getEmptyPositions();
     availablePositions.forEach(p -> {
       State newState = new State(this.board);
-      newState.setPlayerNo(3 - this.playerNo);
-      newState.getBoard().performMove(newState.getPlayerNo(), p);
+      newState.setPlayer(getOpponent());
+      newState.getBoard().performMove(newState.getPlayer(), p);
       possibleStates.add(newState);
     });
     return possibleStates;
@@ -59,10 +59,10 @@ public class State {
     List<Position> availablePositions = this.board.getEmptyPositions();
     int totalPossibilities = availablePositions.size();
     int selectRandom = (int) (Math.random() * totalPossibilities);
-    this.board.performMove(this.playerNo, availablePositions.get(selectRandom));
+    this.board.performMove(this.player, availablePositions.get(selectRandom));
   }
 
   void togglePlayer() {
-    this.playerNo = 3 - this.playerNo;
+    this.player = board.getOpponent(player);
   }
 }

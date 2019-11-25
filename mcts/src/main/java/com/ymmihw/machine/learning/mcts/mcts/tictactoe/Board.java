@@ -9,9 +9,10 @@ import lombok.Setter;
 @Setter
 public class Board {
   private int[][] boardValues;
+  private int boardSize;
   private int totalMoves;
 
-  public static final int DEFAULT_BOARD_SIZE = 3;
+  private static final int DEFAULT_BOARD_SIZE = 3;
 
   public static final int IN_PROGRESS = -1;
   public static final int DRAW = 0;
@@ -19,25 +20,17 @@ public class Board {
   public static final int P2 = 2;
 
   public Board() {
-    boardValues = new int[DEFAULT_BOARD_SIZE][DEFAULT_BOARD_SIZE];
+    this.boardValues = new int[DEFAULT_BOARD_SIZE][DEFAULT_BOARD_SIZE];
+    this.boardSize = DEFAULT_BOARD_SIZE;
   }
 
   public Board(int boardSize) {
-    boardValues = new int[boardSize][boardSize];
-  }
-
-  public Board(int[][] boardValues) {
-    this.boardValues = boardValues;
-  }
-
-  public Board(int[][] boardValues, int totalMoves) {
-    this.boardValues = boardValues;
-    this.totalMoves = totalMoves;
+    this.boardValues = new int[boardSize][boardSize];
+    this.boardSize = boardSize;
   }
 
   public Board(Board board) {
-    int boardLength = board.getBoardValues().length;
-    this.boardValues = new int[boardLength][boardLength];
+    this(board.boardSize);
     int[][] boardValues = board.getBoardValues();
     int n = boardValues.length;
     for (int i = 0; i < n; i++) {
@@ -50,7 +43,7 @@ public class Board {
 
   public void performMove(int player, Position p) {
     this.totalMoves++;
-    boardValues[p.getX()][p.getY()] = player;
+    this.boardValues[p.getX()][p.getY()] = player;
   }
 
   public int checkStatus() {
@@ -146,5 +139,9 @@ public class Board {
         System.out.println("Game In Progress");
         break;
     }
+  }
+
+  public int getOpponent(int player) {
+    return player == Board.P1 ? Board.P2 : Board.P1;
   }
 }

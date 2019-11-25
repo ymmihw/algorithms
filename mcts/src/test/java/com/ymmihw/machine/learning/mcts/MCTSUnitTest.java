@@ -2,6 +2,8 @@ package com.ymmihw.machine.learning.mcts;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 import org.junit.Test;
 import com.ymmihw.machine.learning.mcts.mcts.montecarlo.MonteCarloTreeSearch;
@@ -14,9 +16,14 @@ import com.ymmihw.machine.learning.mcts.mcts.tree.Tree;
 public class MCTSUnitTest {
 
   @Test
-  public void givenStats_whenGetUCTForNode_thenUCTMatchesWithManualData() {
+  public void givenStats_whenGetUCTForNode_thenUCTMatchesWithManualData()
+      throws IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+      NoSuchMethodException, SecurityException {
+    Method method = UCT.class.getDeclaredMethod("uctValue", int.class, double.class, int.class);
+    method.setAccessible(true);
     double uctValue = 15.79;
-    assertEquals(UCT.uctValue(600, 300, 20), uctValue, 0.01);
+    double invoke = (double) method.invoke(null, 600, 300, 20);
+    assertEquals(invoke, uctValue, 0.01);
   }
 
   @Test
@@ -42,13 +49,13 @@ public class MCTSUnitTest {
     MonteCarloTreeSearch mcts = new MonteCarloTreeSearch();
 
     int player = Board.P1;
-    int totalMoves = Board.DEFAULT_BOARD_SIZE * Board.DEFAULT_BOARD_SIZE;
+    int totalMoves = board.getBoardSize() * board.getBoardSize();
     for (int i = 0; i < totalMoves; i++) {
       board = mcts.findNextMove(board, player);
       if (board.checkStatus() != -1) {
         break;
       }
-      player = 3 - player;
+      player = board.getOpponent(player);
     }
     int winStatus = board.checkStatus();
     assertEquals(winStatus, Board.DRAW);
@@ -63,19 +70,24 @@ public class MCTSUnitTest {
     mcts3.setLevel(3);
 
     int player = Board.P1;
-    int totalMoves = Board.DEFAULT_BOARD_SIZE * Board.DEFAULT_BOARD_SIZE;
+    int totalMoves = board.getBoardSize() * board.getBoardSize();
     for (int i = 0; i < totalMoves; i++) {
-      if (player == Board.P1)
+      if (player == Board.P1) {
         board = mcts3.findNextMove(board, player);
-      else
+      } else {
         board = mcts1.findNextMove(board, player);
+      }
 
+      player = board.getOpponent(player);
+
+      board.printBoard();
+      System.out.println("=============");
       if (board.checkStatus() != -1) {
         break;
       }
-      player = 3 - player;
     }
     int winStatus = board.checkStatus();
+    board.printStatus();
     assertTrue(winStatus == Board.DRAW || winStatus == Board.P1);
   }
 

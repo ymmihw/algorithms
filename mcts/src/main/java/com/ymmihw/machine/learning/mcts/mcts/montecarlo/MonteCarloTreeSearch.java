@@ -22,15 +22,15 @@ public class MonteCarloTreeSearch {
     return 2 * (this.level - 1) + 1;
   }
 
-  public Board findNextMove(Board board, int playerNo) {
+  public Board findNextMove(Board board, int player) {
     long start = System.currentTimeMillis();
     long end = start + 60 * getMillisForCurrentLevel();
 
-    int opponent = 3 - playerNo;
+    int opponent = board.getOpponent(player);
     Tree tree = new Tree();
     Node rootNode = tree.getRoot();
     rootNode.getState().setBoard(board);
-    rootNode.getState().setPlayerNo(opponent);
+    rootNode.getState().setPlayer(opponent);
 
     while (System.currentTimeMillis() < end) {
       // Phase 1 - Selection
@@ -41,7 +41,7 @@ public class MonteCarloTreeSearch {
 
       // Phase 3 - Simulation
       Node nodeToExplore = promisingNode;
-      if (promisingNode.getChildArray().size() > 0) {
+      if (promisingNode.getChildren().size() > 0) {
         nodeToExplore = promisingNode.getRandomChildNode();
       }
       int playoutResult = simulateRandomPlayout(nodeToExplore, opponent);
@@ -56,7 +56,7 @@ public class MonteCarloTreeSearch {
 
   private Node selectPromisingNode(Node rootNode) {
     Node node = rootNode;
-    while (node.getChildArray().size() != 0) {
+    while (node.getChildren().size() != 0) {
       node = UCT.findBestNodeWithUCT(node);
     }
     return node;
@@ -67,16 +67,16 @@ public class MonteCarloTreeSearch {
     possibleStates.forEach(state -> {
       Node newNode = new Node(state);
       newNode.setParent(node);
-      newNode.getState().setPlayerNo(node.getState().getOpponent());
-      node.getChildArray().add(newNode);
+      newNode.getState().setPlayer(node.getState().getOpponent());
+      node.getChildren().add(newNode);
     });
   }
 
-  private void backPropogation(Node nodeToExplore, int playerNo) {
+  private void backPropogation(Node nodeToExplore, int player) {
     Node tempNode = nodeToExplore;
     while (tempNode != null) {
       tempNode.getState().incrementVisit();
-      if (tempNode.getState().getPlayerNo() == playerNo)
+      if (tempNode.getState().getPlayer() == player)
         tempNode.getState().addScore(WIN_SCORE);
       tempNode = tempNode.getParent();
     }

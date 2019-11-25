@@ -13,43 +13,43 @@ import lombok.Setter;
 public class Node {
   private State state;
   private Node parent;
-  private List<Node> childArray;
+  private List<Node> children;
 
   public Node() {
     this.state = new State();
-    childArray = new ArrayList<>();
+    children = new ArrayList<>();
   }
 
   public Node(State state) {
     this.state = state;
-    childArray = new ArrayList<>();
+    children = new ArrayList<>();
   }
 
-  public Node(State state, Node parent, List<Node> childArray) {
+  public Node(State state, Node parent, List<Node> children) {
     this.state = state;
     this.parent = parent;
-    this.childArray = childArray;
+    this.children = children;
   }
 
   public Node(Node node) {
-    this.childArray = new ArrayList<>();
+    this.children = new ArrayList<>();
     this.state = new State(node.getState());
     if (node.getParent() != null)
       this.parent = node.getParent();
-    List<Node> childArray = node.getChildArray();
+    List<Node> childArray = node.getChildren();
     for (Node child : childArray) {
-      this.childArray.add(new Node(child));
+      this.children.add(new Node(child));
     }
   }
 
   public Node getRandomChildNode() {
-    int noOfPossibleMoves = this.childArray.size();
+    int noOfPossibleMoves = this.children.size();
     int selectRandom = (int) (Math.random() * noOfPossibleMoves);
-    return this.childArray.get(selectRandom);
+    return this.children.get(selectRandom);
   }
 
   public Node getChildWithMaxScore() {
-    return Collections.max(this.childArray, Comparator.comparing(c -> {
+    return Collections.max(this.children, Comparator.comparing(c -> {
       return c.getState().getVisitCount();
     }));
   }

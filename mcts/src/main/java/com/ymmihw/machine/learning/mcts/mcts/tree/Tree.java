@@ -15,7 +15,7 @@ public class Tree {
   }
 
   public void addChild(Node parent, Node child) {
-    parent.getChildArray().add(child);
+    parent.getChildren().add(child);
   }
 
 }
