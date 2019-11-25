@@ -52,7 +52,7 @@ public class MCTSUnitTest {
     int totalMoves = board.getBoardSize() * board.getBoardSize();
     for (int i = 0; i < totalMoves; i++) {
       board = mcts.findNextMove(board, player);
-      if (board.checkStatus() != -1) {
+      if (!board.isInProgress()) {
         break;
       }
       player = board.getOpponent(player);
@@ -82,7 +82,7 @@ public class MCTSUnitTest {
 
       board.printBoard();
       System.out.println("=============");
-      if (board.checkStatus() != -1) {
+      if (!board.isInProgress()) {
         break;
       }
     }

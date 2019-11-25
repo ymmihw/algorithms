@@ -144,4 +144,8 @@ public class Board {
   public int getOpponent(int player) {
     return player == Board.P1 ? Board.P2 : Board.P1;
   }
+
+  public boolean isInProgress() {
+    return checkStatus() == IN_PROGRESS;
+  }
 }
