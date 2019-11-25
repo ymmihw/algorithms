@@ -50,14 +50,14 @@ public class MCTSUnitTest {
 
     int player = Board.P1;
     int totalMoves = board.getBoardSize() * board.getBoardSize();
-    for (int i = 0; i < totalMoves; i++) {
+    for (int i = 0; i < totalMoves && board.isInProgress(); i++) {
       board = mcts.findNextMove(board, player);
-      if (!board.isInProgress()) {
-        break;
-      }
       player = board.getOpponent(player);
+      board.printBoard();
+      System.out.println("=============");
     }
     int winStatus = board.checkStatus();
+    board.printStatus();
     assertEquals(winStatus, Board.DRAW);
   }
 
@@ -65,13 +65,13 @@ public class MCTSUnitTest {
   public void givenEmptyBoard_whenLevel1VsLevel3_thenLevel3WinsOrDraw() {
     Board board = new Board();
     MonteCarloTreeSearch mcts1 = new MonteCarloTreeSearch();
-    mcts1.setLevel(1);
+    mcts1.setLevel(0);
     MonteCarloTreeSearch mcts3 = new MonteCarloTreeSearch();
     mcts3.setLevel(3);
 
     int player = Board.P1;
     int totalMoves = board.getBoardSize() * board.getBoardSize();
-    for (int i = 0; i < totalMoves; i++) {
+    for (int i = 0; i < totalMoves && board.isInProgress(); i++) {
       if (player == Board.P1) {
         board = mcts3.findNextMove(board, player);
       } else {
@@ -82,9 +82,6 @@ public class MCTSUnitTest {
 
       board.printBoard();
       System.out.println("=============");
-      if (!board.isInProgress()) {
-        break;
-      }
     }
     int winStatus = board.checkStatus();
     board.printStatus();
