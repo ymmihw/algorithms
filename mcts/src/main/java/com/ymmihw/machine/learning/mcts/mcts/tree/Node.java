@@ -17,12 +17,12 @@ public class Node {
 
   public Node() {
     this.state = new State();
-    children = new ArrayList<>();
+    this.children = new ArrayList<>();
   }
 
   public Node(State state) {
     this.state = state;
-    children = new ArrayList<>();
+    this.children = new ArrayList<>();
   }
 
   public Node(Node node) {

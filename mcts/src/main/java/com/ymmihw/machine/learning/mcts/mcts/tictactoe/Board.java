@@ -20,8 +20,7 @@ public class Board {
   public static final int P2 = 2;
 
   public Board() {
-    this.boardValues = new int[DEFAULT_BOARD_SIZE][DEFAULT_BOARD_SIZE];
-    this.boardSize = DEFAULT_BOARD_SIZE;
+    this(DEFAULT_BOARD_SIZE);
   }
 
   public Board(int boardSize) {

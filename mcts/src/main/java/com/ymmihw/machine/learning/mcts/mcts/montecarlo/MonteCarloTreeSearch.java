@@ -12,11 +12,7 @@ import lombok.Setter;
 public class MonteCarloTreeSearch {
 
   private static final int WIN_SCORE = 10;
-  private int level;
-
-  public MonteCarloTreeSearch() {
-    this.level = 3;
-  }
+  private int level = 4;
 
   private int getMillisForCurrentLevel() {
     return 2 * (this.level - 1) + 1;

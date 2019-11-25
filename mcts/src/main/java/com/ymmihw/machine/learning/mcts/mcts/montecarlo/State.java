@@ -26,18 +26,13 @@ public class State {
     this.winScore = state.getWinScore();
   }
 
-  public State(Board board) {
-    this.board = new Board(board);
-  }
-
   int getOpponent() {
     return board.getOpponent(player);
   }
 
   public List<State> getAllPossibleStates() {
-    List<Position> availablePositions = this.board.getEmptyPositions();
-    List<State> possibleStates = availablePositions.stream().map(e -> {
-      State newState = new State(this.board);
+    List<State> possibleStates = this.board.getEmptyPositions().stream().map(e -> {
+      State newState = new State(this);
       newState.setPlayer(getOpponent());
       newState.getBoard().performMove(newState.getPlayer(), e);
       return newState;
