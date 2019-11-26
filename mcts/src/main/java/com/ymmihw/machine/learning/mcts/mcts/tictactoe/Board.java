@@ -8,11 +8,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Board {
-  private int[][] boardValues;
-  private int boardSize;
+  private final int[][] boardValues;
+  private final int boardSize;
+  private final int winLength;
+  private int winner = 0;
   private int totalMoves;
 
   private static final int DEFAULT_BOARD_SIZE = 3;
+  private static final int DEFAULT_WIN_LENGTH = 3;
 
   public static final int IN_PROGRESS = -1;
   public static final int DRAW = 0;
@@ -20,19 +23,20 @@ public class Board {
   public static final int P2 = 2;
 
   public Board() {
-    this(DEFAULT_BOARD_SIZE);
+    this(DEFAULT_BOARD_SIZE, DEFAULT_WIN_LENGTH);
   }
 
-  public Board(int boardSize) {
+  public Board(int boardSize, int winLength) {
     this.boardValues = new int[boardSize][boardSize];
     this.boardSize = boardSize;
+    this.winLength = winLength;
   }
 
   public Board(Board board) {
-    this(board.boardSize);
+    this(board.boardSize, board.getWinLength());
+    this.winner = board.getWinner();
     int[][] boardValues = board.getBoardValues();
-    int n = boardValues.length;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < boardValues.length; i++) {
       int m = boardValues[i].length;
       for (int j = 0; j < m; j++) {
         this.boardValues[i][j] = boardValues[i][j];
@@ -40,65 +44,76 @@ public class Board {
     }
   }
 
+  private void checkStatus(int player, Position p) {
+    StringBuilder row = new StringBuilder();
+    for (int i = 0; i < boardSize; i++) {
+      row.append(boardValues[i][p.getY()]);
+    }
+
+    if (findWinner(row, player)) {
+      return;
+    }
+
+    StringBuilder col = new StringBuilder();
+    for (int i = 0; i < boardSize; i++) {
+      col.append(boardValues[p.getX()][i]);
+    }
+    if (findWinner(col, player)) {
+      return;
+    }
+    StringBuilder diag1 = new StringBuilder();
+    diag1.append(player);
+    for (int i = 1; p.getX() - i >= 0 && p.getY() - i >= 0; i++) {
+      diag1.insert(0, boardValues[p.getX() - i][p.getY() - i]);
+    }
+    for (int i = 1; p.getX() + i < boardSize && p.getY() + i < boardSize; i++) {
+      diag1.append(boardValues[p.getX() + i][p.getY() + i]);
+    }
+
+    if (findWinner(diag1, player)) {
+      return;
+    }
+    StringBuilder diag2 = new StringBuilder();
+    diag2.append(player);
+    for (int i = 1; p.getX() - i >= 0 && p.getY() + i < boardSize; i++) {
+      diag2.insert(0, boardValues[p.getX() - i][p.getY() + i]);
+    }
+    for (int i = 1; p.getX() + i < boardSize && p.getY() - i >= 0; i++) {
+      diag2.append(boardValues[p.getX() + i][p.getY() - i]);
+    }
+    if (findWinner(diag2, player)) {
+      return;
+    }
+  }
+
+  private boolean findWinner(StringBuilder sb, int player) {
+    StringBuilder sample = new StringBuilder();
+    for (int i = 0; i < winLength; i++) {
+      sample.append(player);
+    }
+
+    if (sb.toString().contains(sample)) {
+      this.winner = player;
+      return true;
+    }
+
+    return false;
+  }
+
   public void performMove(int player, Position p) {
     this.totalMoves++;
     this.boardValues[p.getX()][p.getY()] = player;
+    checkStatus(player, p);
   }
 
   public int checkStatus() {
-    int boardSize = boardValues.length;
-    int maxIndex = boardSize - 1;
-    int[] diag1 = new int[boardSize];
-    int[] diag2 = new int[boardSize];
-
-    for (int i = 0; i < boardSize; i++) {
-      int[] row = boardValues[i];
-      int[] col = new int[boardSize];
-      for (int j = 0; j < boardSize; j++) {
-        col[j] = boardValues[j][i];
-      }
-
-      int checkRowForWin = checkForWin(row);
-      if (checkRowForWin != 0)
-        return checkRowForWin;
-
-      int checkColForWin = checkForWin(col);
-      if (checkColForWin != 0)
-        return checkColForWin;
-
-      diag1[i] = boardValues[i][i];
-      diag2[i] = boardValues[maxIndex - i][i];
+    if (this.winner != DRAW) {
+      return this.winner;
     }
-
-    int checkDia1gForWin = checkForWin(diag1);
-    if (checkDia1gForWin != 0)
-      return checkDia1gForWin;
-
-    int checkDiag2ForWin = checkForWin(diag2);
-    if (checkDiag2ForWin != 0)
-      return checkDiag2ForWin;
-
     if (getEmptyPositions().size() > 0)
       return IN_PROGRESS;
     else
       return DRAW;
-  }
-
-  private int checkForWin(int[] row) {
-    boolean isEqual = true;
-    int size = row.length;
-    int previous = row[0];
-    for (int i = 0; i < size; i++) {
-      if (previous != row[i]) {
-        isEqual = false;
-        break;
-      }
-      previous = row[i];
-    }
-    if (isEqual)
-      return previous;
-    else
-      return 0;
   }
 
   public void printBoard() {

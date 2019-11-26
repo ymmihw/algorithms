@@ -64,6 +64,7 @@ public class MCTSUnitTest {
   @Test
   public void givenEmptyBoard_whenLevel1VsLevel3_thenLevel3WinsOrDraw() {
     Board board = new Board();
+
     MonteCarloTreeSearch mcts1 = new MonteCarloTreeSearch();
     mcts1.setLevel(0);
     MonteCarloTreeSearch mcts3 = new MonteCarloTreeSearch();
