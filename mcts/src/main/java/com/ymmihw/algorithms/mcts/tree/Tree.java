@@ -1,4 +1,4 @@
-package com.ymmihw.machine.learning.mcts.mcts.tree;
+package com.ymmihw.algorithms.mcts.tree;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.ymmihw.machine.learning.mcts.mcts.tictactoe;
+package com.ymmihw.algorithms.mcts.tictactoe;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,8 @@
-package com.ymmihw.machine.learning.mcts.mcts.montecarlo;
+package com.ymmihw.algorithms.mcts.montecarlo;
 
 import java.util.Collections;
 import java.util.Comparator;
-import com.ymmihw.machine.learning.mcts.mcts.tree.Node;
+import com.ymmihw.algorithms.mcts.tree.Node;
 
 public class UCT {
 

@@ -1,4 +1,4 @@
-package com.ymmihw.machine.learning.mcts;
+package com.ymmihw.algorithms.mcts;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -6,12 +6,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 import org.junit.Test;
-import com.ymmihw.machine.learning.mcts.mcts.montecarlo.MonteCarloTreeSearch;
-import com.ymmihw.machine.learning.mcts.mcts.montecarlo.State;
-import com.ymmihw.machine.learning.mcts.mcts.montecarlo.UCT;
-import com.ymmihw.machine.learning.mcts.mcts.tictactoe.Board;
-import com.ymmihw.machine.learning.mcts.mcts.tictactoe.Position;
-import com.ymmihw.machine.learning.mcts.mcts.tree.Tree;
+import com.ymmihw.algorithms.mcts.montecarlo.MonteCarloTreeSearch;
+import com.ymmihw.algorithms.mcts.montecarlo.State;
+import com.ymmihw.algorithms.mcts.montecarlo.UCT;
+import com.ymmihw.algorithms.mcts.tictactoe.Board;
+import com.ymmihw.algorithms.mcts.tictactoe.Position;
+import com.ymmihw.algorithms.mcts.tree.Tree;
 
 public class MCTSUnitTest {
 

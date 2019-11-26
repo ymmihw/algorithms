@@ -1,10 +1,10 @@
-package com.ymmihw.machine.learning.mcts.mcts.tree;
+package com.ymmihw.algorithms.mcts.tree;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import com.ymmihw.machine.learning.mcts.mcts.montecarlo.State;
+import com.ymmihw.algorithms.mcts.montecarlo.State;
 import lombok.Getter;
 import lombok.Setter;
 

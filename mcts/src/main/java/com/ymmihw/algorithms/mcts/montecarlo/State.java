@@ -1,9 +1,9 @@
-package com.ymmihw.machine.learning.mcts.mcts.montecarlo;
+package com.ymmihw.algorithms.mcts.montecarlo;
 
 import static java.util.stream.Collectors.toList;
 import java.util.List;
-import com.ymmihw.machine.learning.mcts.mcts.tictactoe.Board;
-import com.ymmihw.machine.learning.mcts.mcts.tictactoe.Position;
+import com.ymmihw.algorithms.mcts.tictactoe.Board;
+import com.ymmihw.algorithms.mcts.tictactoe.Position;
 import lombok.Getter;
 import lombok.Setter;
 
