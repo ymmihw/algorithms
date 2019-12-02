@@ -39,7 +39,7 @@ public class CloudBalancingHelloWorld {
     CloudBalance solvedCloudBalance = solver.solve(unsolvedCloudBalance);
 
     // Display the result
-    System.out.println("\nSolved cloudBalance with 400 computers and 1200 processes:\n"
+    System.out.println("\nSolved cloudBalance with 4 computers and 12 processes:\n"
         + toDisplayString(solvedCloudBalance));
   }
 

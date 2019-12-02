@@ -16,19 +16,17 @@ package com.ymmihw.algorithms.optaplanner.domain;
 
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class AbstractPersistable {
-  protected long id;
-
   @PlanningId
-  public Long getId() {
-    return id;
-  }
+  protected long id;
 
   @Override
   public String toString() {

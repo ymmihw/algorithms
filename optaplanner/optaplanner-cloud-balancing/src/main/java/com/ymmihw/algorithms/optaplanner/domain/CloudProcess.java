@@ -34,13 +34,9 @@ public class CloudProcess extends AbstractPersistable {
   private int requiredNetworkBandwidth; // in gigabyte per hour
 
   // Planning variables: changes during planning, between score calculations.
-  private CloudComputer computer;
-
   @PlanningVariable(valueRangeProviderRefs = {"computerRange"},
       strengthComparatorClass = CloudComputerStrengthComparator.class)
-  public CloudComputer getComputer() {
-    return computer;
-  }
+  private CloudComputer computer;
 
   public String details() {
     return "CloudProcess [id=" + id + ", requiredMemory=" + requiredMemory

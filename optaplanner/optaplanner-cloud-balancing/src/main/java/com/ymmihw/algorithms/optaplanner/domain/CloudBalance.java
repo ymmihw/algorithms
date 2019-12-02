@@ -24,36 +24,25 @@ import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 import org.optaplanner.persistence.xstream.api.score.buildin.hardsoft.HardSoftScoreXStreamConverter;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @PlanningSolution
 @XStreamAlias("CloudBalance")
 @Setter
+@Getter
 @NoArgsConstructor
 public class CloudBalance extends AbstractPersistable {
+  @ValueRangeProvider(id = "computerRange")
+  @ProblemFactCollectionProperty
   private List<CloudComputer> computerList;
-
+  @PlanningEntityCollectionProperty
   private List<CloudProcess> processList;
 
   @XStreamConverter(HardSoftScoreXStreamConverter.class)
-  private HardSoftScore score;
-
-  @ValueRangeProvider(id = "computerRange")
-  @ProblemFactCollectionProperty
-  public List<CloudComputer> getComputerList() {
-    return computerList;
-  }
-
-  @PlanningEntityCollectionProperty
-  public List<CloudProcess> getProcessList() {
-    return processList;
-  }
-
   @PlanningScore
-  public HardSoftScore getScore() {
-    return score;
-  }
+  private HardSoftScore score;
 
   // ************************************************************************
   // Complex methods
