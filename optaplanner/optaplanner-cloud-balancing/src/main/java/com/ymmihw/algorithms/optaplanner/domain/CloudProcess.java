@@ -16,7 +16,6 @@ package com.ymmihw.algorithms.optaplanner.domain;
 
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.ymmihw.algorithms.optaplanner.optional.domain.CloudComputerStrengthComparator;
 import com.ymmihw.algorithms.optaplanner.optional.domain.CloudProcessDifficultyComparator;
 import lombok.Getter;
@@ -24,7 +23,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @PlanningEntity(difficultyComparatorClass = CloudProcessDifficultyComparator.class)
-@XStreamAlias("CloudProcess")
 @Getter
 @Setter
 @NoArgsConstructor

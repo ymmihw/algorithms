@@ -14,12 +14,10 @@
 
 package com.ymmihw.algorithms.optaplanner.domain;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@XStreamAlias("CloudComputer")
 @NoArgsConstructor
 @Getter
 @Setter
