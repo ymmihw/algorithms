@@ -24,7 +24,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CloudComputer extends AbstractPersistable {
-  private static final long serialVersionUID = 1L;
   private int cpuPower; // in gigahertz
   private int memory; // in gigabyte RAM
   private int networkBandwidth; // in gigabyte per hour

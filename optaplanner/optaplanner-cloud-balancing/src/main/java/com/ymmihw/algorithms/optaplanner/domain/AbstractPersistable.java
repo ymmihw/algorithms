@@ -14,14 +14,12 @@
 
 package com.ymmihw.algorithms.optaplanner.domain;
 
-import java.io.Serializable;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 import lombok.Setter;
 
 @Setter
 
-public abstract class AbstractPersistable implements Serializable {
-  private static final long serialVersionUID = 1L;
+public abstract class AbstractPersistable {
   protected long id;
 
   protected AbstractPersistable() {}

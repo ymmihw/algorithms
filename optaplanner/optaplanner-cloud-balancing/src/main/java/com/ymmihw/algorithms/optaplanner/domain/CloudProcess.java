@@ -29,7 +29,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CloudProcess extends AbstractPersistable {
-  private static final long serialVersionUID = 1L;
   private int requiredCpuPower; // in gigahertz
   private int requiredMemory; // in gigabyte RAM
   private int requiredNetworkBandwidth; // in gigabyte per hour

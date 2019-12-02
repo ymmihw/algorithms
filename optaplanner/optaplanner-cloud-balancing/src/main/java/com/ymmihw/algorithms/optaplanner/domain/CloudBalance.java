@@ -32,8 +32,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CloudBalance extends AbstractPersistable {
-  private static final long serialVersionUID = 1L;
-
   private List<CloudComputer> computerList;
 
   private List<CloudProcess> processList;
