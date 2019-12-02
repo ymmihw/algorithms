@@ -14,14 +14,11 @@
 
 package com.ymmihw.algorithms.optaplanner.persistence;
 
-import java.io.File;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import org.optaplanner.persistence.common.api.domain.solution.SolutionFileIO;
-import org.optaplanner.persistence.xstream.impl.domain.solution.XStreamSolutionFileIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.common.math.BigIntegerMath;
@@ -62,52 +59,10 @@ public class CloudBalancingGenerator {
   private static final int MAXIMUM_REQUIRED_MEMORY = 32; // in gigabyte RAM
   private static final int MAXIMUM_REQUIRED_NETWORK_BANDWIDTH = 12; // in gigabyte per hour
 
-  public static void main(String[] args) {
-    CloudBalancingGenerator generator = new CloudBalancingGenerator();
-    generator.writeCloudBalance(2, 6);
-    generator.writeCloudBalance(3, 9);
-    generator.writeCloudBalance(4, 12);
-    generator.writeCloudBalance(100, 300);
-    generator.writeCloudBalance(200, 600);
-    generator.writeCloudBalance(400, 1200);
-    generator.writeCloudBalance(800, 2400);
-    generator.writeCloudBalance(1600, 4800);
-  }
-
-  protected final SolutionFileIO<CloudBalance> solutionFileIO;
-  protected final File outputDir;
-
   protected Random random;
 
   public CloudBalancingGenerator() {
-    solutionFileIO = new XStreamSolutionFileIO<>(CloudBalance.class);
-    outputDir = new File("unsolved");
     checkConfiguration();
-  }
-
-  public CloudBalancingGenerator(boolean withoutDao) {
-    if (!withoutDao) {
-      throw new IllegalArgumentException(
-          "The parameter withoutDao (" + withoutDao + ") must be true.");
-    }
-    solutionFileIO = null;
-    outputDir = null;
-    checkConfiguration();
-  }
-
-  private void checkConfiguration() {
-    if (CPU_POWER_PRICES.length != MEMORY_PRICES.length
-        || CPU_POWER_PRICES.length != NETWORK_BANDWIDTH_PRICES.length) {
-      throw new IllegalStateException("All price arrays must be equal in length.");
-    }
-  }
-
-  private void writeCloudBalance(int computerListSize, int processListSize) {
-    String fileName = determineFileName(computerListSize, processListSize);
-    File outputFile = new File(outputDir, fileName + ".xml");
-    CloudBalance cloudBalance = createCloudBalance(fileName, computerListSize, processListSize);
-    solutionFileIO.write(cloudBalance, outputFile);
-    logger.info("Saved: {}", outputFile);
   }
 
   public CloudBalance createCloudBalance(int computerListSize, int processListSize) {
@@ -115,11 +70,15 @@ public class CloudBalancingGenerator {
         computerListSize, processListSize);
   }
 
-  private String determineFileName(int computerListSize, int processListSize) {
-    return computerListSize + "computers-" + processListSize + "processes";
+  private void checkConfiguration() {
+    if (CPU_POWER_PRICES.length != MEMORY_PRICES.length
+        || CPU_POWER_PRICES.length != NETWORK_BANDWIDTH_PRICES.length) {
+      throw new IllegalStateException("All price arrays must be equal in length.");
+    }
+
   }
 
-  public CloudBalance createCloudBalance(String inputId, int computerListSize,
+  private CloudBalance createCloudBalance(String inputId, int computerListSize,
       int processListSize) {
     random = new Random(47);
     CloudBalance cloudBalance = new CloudBalance();
@@ -135,7 +94,11 @@ public class CloudBalancingGenerator {
     return cloudBalance;
   }
 
-  public static String getFlooredPossibleSolutionSize(BigInteger possibleSolutionSize) {
+  private String determineFileName(int computerListSize, int processListSize) {
+    return computerListSize + "computers-" + processListSize + "processes";
+  }
+
+  private static String getFlooredPossibleSolutionSize(BigInteger possibleSolutionSize) {
     if (possibleSolutionSize == null) {
       return null;
     }
@@ -149,13 +112,13 @@ public class CloudBalancingGenerator {
     List<CloudComputer> computerList = new ArrayList<>(computerListSize);
     for (int i = 0; i < computerListSize; i++) {
       CloudComputer computer = generateComputerWithoutId();
-      computer.setId((long) i);
+      computer.setId(i);
       computerList.add(computer);
     }
     cloudBalance.setComputerList(computerList);
   }
 
-  public CloudComputer generateComputerWithoutId() {
+  private CloudComputer generateComputerWithoutId() {
     CloudComputer computer = new CloudComputer();
     int cpuPowerPricesIndex = random.nextInt(CPU_POWER_PRICES.length);
     computer.setCpuPower(CPU_POWER_PRICES[cpuPowerPricesIndex].getHardwareValue());
@@ -196,7 +159,7 @@ public class CloudBalancingGenerator {
     List<CloudProcess> processList = new ArrayList<>(processListSize);
     for (int i = 0; i < processListSize; i++) {
       CloudProcess process = generateProcessWithoutId();
-      process.setId((long) i);
+      process.setId(i);
       processList.add(process);
     }
     cloudBalance.setProcessList(processList);
