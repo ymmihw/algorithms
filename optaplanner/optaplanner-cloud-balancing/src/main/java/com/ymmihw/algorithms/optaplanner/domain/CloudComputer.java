@@ -18,13 +18,11 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @XStreamAlias("CloudComputer")
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class CloudComputer extends AbstractPersistable {
   private static final long serialVersionUID = 1L;
   private int cpuPower; // in gigahertz
@@ -40,6 +38,11 @@ public class CloudComputer extends AbstractPersistable {
     this.cost = cost;
   }
 
+  public String details() {
+    return "CloudComputer [id=" + id + ", memory=" + memory + ", networkBandwidth="
+        + networkBandwidth + ", cost=" + cost + ", cpuPower=" + cpuPower + "]";
+  }
+
   // ************************************************************************
   // Complex methods
   // ************************************************************************
@@ -47,4 +50,6 @@ public class CloudComputer extends AbstractPersistable {
   public int getMultiplicand() {
     return cpuPower * memory * networkBandwidth;
   }
+
+
 }

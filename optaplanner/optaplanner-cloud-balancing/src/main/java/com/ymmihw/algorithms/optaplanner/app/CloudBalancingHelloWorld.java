@@ -33,7 +33,7 @@ public class CloudBalancingHelloWorld {
     Solver<CloudBalance> solver = solverFactory.buildSolver();
 
     // Load a problem with 400 computers and 1200 processes
-    CloudBalance unsolvedCloudBalance = new CloudBalancingGenerator().createCloudBalance(400, 1200);
+    CloudBalance unsolvedCloudBalance = new CloudBalancingGenerator().createCloudBalance(4, 12);
 
     // Solve the problem
     CloudBalance solvedCloudBalance = solver.solve(unsolvedCloudBalance);
@@ -47,8 +47,8 @@ public class CloudBalancingHelloWorld {
     StringBuilder displayString = new StringBuilder();
     for (CloudProcess process : cloudBalance.getProcessList()) {
       CloudComputer computer = process.getComputer();
-      displayString.append("  ").append(process.toString()).append(" -> ")
-          .append(computer == null ? null : computer.toString()).append("\n");
+      displayString.append("  ").append(process.details()).append(" -> ")
+          .append(computer == null ? null : computer.details()).append("\n");
     }
     return displayString.toString();
   }

@@ -14,6 +14,6 @@
  <termination>
   <terminationCompositionStyle>OR</terminationCompositionStyle>
   <minutesSpentLimit>2</minutesSpentLimit>
-  <unimprovedSecondsSpentLimit>5</unimprovedSecondsSpentLimit>
+  <unimprovedSecondsSpentLimit>10</unimprovedSecondsSpentLimit>
  </termination>
 </solver>

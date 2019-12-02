@@ -15,20 +15,18 @@
 package com.ymmihw.algorithms.optaplanner.domain;
 
 import java.io.Serializable;
-
 import org.optaplanner.core.api.domain.lookup.PlanningId;
+import lombok.Setter;
+
+@Setter
 
 public abstract class AbstractPersistable implements Serializable {
   private static final long serialVersionUID = 1L;
-  protected Long id;
+  protected long id;
 
   protected AbstractPersistable() {}
 
   protected AbstractPersistable(long id) {
-    this.id = id;
-  }
-
-  public void setId(Long id) {
     this.id = id;
   }
 
@@ -39,7 +37,6 @@ public abstract class AbstractPersistable implements Serializable {
 
   @Override
   public String toString() {
-    return getClass().getName().replaceAll(".*\\.", "") + "-" + id;
+    return String.valueOf(id);
   }
-
 }

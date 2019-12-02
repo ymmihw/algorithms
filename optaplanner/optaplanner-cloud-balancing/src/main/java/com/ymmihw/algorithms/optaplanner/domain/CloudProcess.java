@@ -22,14 +22,12 @@ import com.ymmihw.algorithms.optaplanner.optional.domain.CloudProcessDifficultyC
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @PlanningEntity(difficultyComparatorClass = CloudProcessDifficultyComparator.class)
 @XStreamAlias("CloudProcess")
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 public class CloudProcess extends AbstractPersistable {
   private static final long serialVersionUID = 1L;
   private int requiredCpuPower; // in gigahertz
@@ -52,6 +50,12 @@ public class CloudProcess extends AbstractPersistable {
       strengthComparatorClass = CloudComputerStrengthComparator.class)
   public CloudComputer getComputer() {
     return computer;
+  }
+
+  public String details() {
+    return "CloudProcess [id=" + id + ", requiredMemory=" + requiredMemory
+        + ", requiredNetworkBandwidth=" + requiredNetworkBandwidth + ", computer=" + computer
+        + ", requiredCpuPower=" + requiredCpuPower + "]";
   }
 
   // ************************************************************************
