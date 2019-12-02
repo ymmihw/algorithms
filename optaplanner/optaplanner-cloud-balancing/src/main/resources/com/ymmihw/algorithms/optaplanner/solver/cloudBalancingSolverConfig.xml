@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solver>
+ <!-- Domain model configuration -->
+ <scanAnnotatedClasses>
+  <packageInclude>com.ymmihw.algorithms.optaplanner</packageInclude>
+ </scanAnnotatedClasses>
+
+ <!-- Score configuration -->
+ <scoreDirectorFactory>
+  <scoreDrl>com/ymmihw/algorithms/optaplanner/solver/cloudBalancingScoreRules.drl</scoreDrl>
+  <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+ </scoreDirectorFactory>
+
+ <termination>
+  <terminationCompositionStyle>OR</terminationCompositionStyle>
+  <minutesSpentLimit>2</minutesSpentLimit>
+  <unimprovedSecondsSpentLimit>5</unimprovedSecondsSpentLimit>
+ </termination>
+</solver>

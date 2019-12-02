@@ -2,24 +2,48 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
  <modelVersion>4.0.0</modelVersion>
- <artifactId>optaplanner</artifactId>
- <name>optaplanner</name>
-
  <parent>
   <groupId>com.ymmihw</groupId>
   <artifactId>algorithms</artifactId>
   <version>0.0.1-SNAPSHOT</version>
  </parent>
+ <artifactId>optaplanner</artifactId>
+ <name>optaplanner</name>
+ <packaging>pom</packaging>
+ <dependencyManagement>
+  <dependencies>
+   <dependency>
+    <groupId>org.optaplanner</groupId>
+    <artifactId>optaplanner-bom</artifactId>
+    <type>pom</type>
+    <version>${optaplanner-bom.version}</version>
+    <scope>import</scope>
+   </dependency>
+  </dependencies>
+ </dependencyManagement>
+ <properties>
+  <optaplanner-bom.version>7.30.0.Final</optaplanner-bom.version>
+ </properties>
  <dependencies>
   <dependency>
    <groupId>org.optaplanner</groupId>
    <artifactId>optaplanner-core</artifactId>
-   <version>${optaplanner-core.version}</version>
+  </dependency>
+  <dependency>
+   <groupId>org.optaplanner</groupId>
+   <artifactId>optaplanner-persistence-common</artifactId>
+  </dependency>
+  <dependency><!-- Most examples use the XStream integration -->
+   <groupId>org.optaplanner</groupId>
+   <artifactId>optaplanner-persistence-xstream</artifactId>
+  </dependency>
+  <dependency>
+   <groupId>ch.qos.logback</groupId>
+   <artifactId>logback-classic</artifactId>
+   <version>1.2.3</version>
   </dependency>
  </dependencies>
-
- <properties>
-  <optaplanner-core.version>7.29.0.Final</optaplanner-core.version>
- </properties>
-
+ <modules>
+  <module>optaplanner-cloud-balancing</module>
+ </modules>
 </project>
