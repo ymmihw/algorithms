@@ -39,12 +39,6 @@ public class CloudBalance extends AbstractPersistable {
   @XStreamConverter(HardSoftScoreXStreamConverter.class)
   private HardSoftScore score;
 
-  public CloudBalance(long id, List<CloudComputer> computerList, List<CloudProcess> processList) {
-    super(id);
-    this.computerList = computerList;
-    this.processList = processList;
-  }
-
   @ValueRangeProvider(id = "computerRange")
   @ProblemFactCollectionProperty
   public List<CloudComputer> getComputerList() {

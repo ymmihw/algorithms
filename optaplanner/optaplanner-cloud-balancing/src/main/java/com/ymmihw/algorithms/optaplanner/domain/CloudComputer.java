@@ -29,14 +29,6 @@ public class CloudComputer extends AbstractPersistable {
   private int networkBandwidth; // in gigabyte per hour
   private int cost; // in euro per month
 
-  public CloudComputer(long id, int cpuPower, int memory, int networkBandwidth, int cost) {
-    super(id);
-    this.cpuPower = cpuPower;
-    this.memory = memory;
-    this.networkBandwidth = networkBandwidth;
-    this.cost = cost;
-  }
-
   public String details() {
     return "CloudComputer [id=" + id + ", memory=" + memory + ", networkBandwidth="
         + networkBandwidth + ", cost=" + cost + ", cpuPower=" + cpuPower + "]";
