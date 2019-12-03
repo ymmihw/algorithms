@@ -20,8 +20,6 @@ public class GraphImageGenerationUnitTest {
 
   @Before
   public void createGraph() throws IOException {
-    File imgFile = new File("src/test/resources/graph.png");
-    imgFile.createNewFile();
     g = new DefaultDirectedGraph<String, DefaultEdge>(DefaultEdge.class);
     String x1 = "x1";
     String x2 = "x2";
