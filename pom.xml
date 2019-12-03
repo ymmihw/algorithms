@@ -55,5 +55,6 @@
   <module>mcts</module>
   <module>optaplanner</module>
   <module>jgrapht-intro</module>
+  <module>HyperLogLog-intro</module>
  </modules>
 </project>
