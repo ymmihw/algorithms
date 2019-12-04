@@ -5,7 +5,7 @@ Module | Article
 mcts | [Monte Carlo Tree Search for Tic-Tac-Toe Game](https://www.baeldung.com/java-monte-carlo-tree-search)
 jgrapht-intro | [Introduction to JGraphT](https://www.baeldung.com/jgrapht)
 HyperLogLog-intro | [Guide to the HyperLogLog Algorithm](https://www.baeldung.com/java-hyperloglog)
-
+Minimax-intro | [Introduction to Minimax Algorithm](https://www.baeldung.com/java-minimax-algorithm)
 
 ###optaplanner
 Module | Article

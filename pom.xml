@@ -56,5 +56,6 @@
   <module>optaplanner</module>
   <module>jgrapht-intro</module>
   <module>HyperLogLog-intro</module>
+  <module>Minimax-intro</module>
  </modules>
 </project>
