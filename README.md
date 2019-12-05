@@ -6,6 +6,7 @@ mcts | [Monte Carlo Tree Search for Tic-Tac-Toe Game](https://www.baeldung.com/j
 jgrapht-intro | [Introduction to JGraphT](https://www.baeldung.com/jgrapht)
 HyperLogLog-intro | [Guide to the HyperLogLog Algorithm](https://www.baeldung.com/java-hyperloglog)
 Minimax-intro | [Introduction to Minimax Algorithm](https://www.baeldung.com/java-minimax-algorithm)
+hill-climbing | [Example of Hill Climbing Algorithm](https://www.baeldung.com/java-hill-climbing-algorithm)
 
 ###optaplanner
 Module | Article
