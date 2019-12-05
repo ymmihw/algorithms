@@ -57,5 +57,6 @@
   <module>HyperLogLog-intro</module>
   <module>Minimax-intro</module>
     <module>hill-climbing</module>
+    <module>slope-one</module>
   </modules>
 </project>
