@@ -13,16 +13,15 @@ public class SlopeOne {
 
   private static Map<Item, Map<Item, Double>> diff = new HashMap<>();
   private static Map<Item, Map<Item, Integer>> freq = new HashMap<>();
-  private static Map<User, HashMap<Item, Double>> inputData;
-  private static Map<User, HashMap<Item, Double>> outputData = new HashMap<>();
 
   public static void main(String[] args) {
     SlopeOne.slopeOne(3);
   }
 
   public static void slopeOne(int numberOfUsers) {
-    inputData = InputData.initializeData(numberOfUsers);
+    Map<User, HashMap<Item, Double>> inputData = InputData.initializeData(numberOfUsers);
     System.out.println("Slope One - Before the Prediction\n");
+    printData(inputData);
     buildDifferencesMatrix(inputData);
     System.out.println("\nSlope One - With Predictions\n");
     predict(inputData);
@@ -63,7 +62,32 @@ public class SlopeOne {
         diff.get(j).put(i, oldValue / count);
       }
     }
-    printData(data);
+    printDiff();
+
+  }
+
+  private static void printDiff() {
+
+    String format = "%10s";
+    System.out.print(String.format(format, ""));
+    InputData.items.stream().map(e -> String.format(format, e.getItemName()))
+        .forEach(System.out::print);
+    System.out.println();
+
+    for (Item e1 : InputData.items) {
+      StringBuilder sb = new StringBuilder(String.format(format, e1.getItemName()));
+      Map<Item, Double> map = diff.get(e1);
+      if (map == null) {
+        map = new HashMap<>();
+      }
+
+      for (Item e2 : InputData.items) {
+        sb.append(String.format("%+10f", map.get(e2)));
+      }
+      System.out.println(sb.toString());
+    }
+
+    System.out.println();
   }
 
   /**
@@ -79,6 +103,9 @@ public class SlopeOne {
       uFreq.put(j, 0);
       uPred.put(j, 0.0);
     }
+
+    Map<User, HashMap<Item, Double>> outputData = new HashMap<>();
+
     for (Entry<User, HashMap<Item, Double>> e : data.entrySet()) {
       for (Item j : e.getValue().keySet()) {
         for (Item k : diff.keySet()) {
@@ -101,9 +128,8 @@ public class SlopeOne {
       for (Item j : InputData.items) {
         if (e.getValue().containsKey(j)) {
           clean.put(j, e.getValue().get(j));
-        } else {
-          clean.put(j, -1.0);
         }
+        clean.putIfAbsent(j, -1.0);
       }
       outputData.put(e.getKey(), clean);
     }

@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class InputData {
 
-  protected static List<Item> items = Arrays.asList(new Item("Candy"), new Item("Drink"),
+  public static List<Item> items = Arrays.asList(new Item("Candy"), new Item("Drink"),
       new Item("Soda"), new Item("Popcorn"), new Item("Snacks"));
 
   public static Map<User, HashMap<Item, Double>> initializeData(int numberOfUsers) {
