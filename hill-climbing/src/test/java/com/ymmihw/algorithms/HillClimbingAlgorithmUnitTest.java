@@ -33,7 +33,7 @@ public class HillClimbingAlgorithmUnitTest {
     try {
       path = hillClimbing.getRouteWithHillClimbing(initStack, goalStack);
       assertNotNull(path);
-      assertEquals(path.get(path.size() - 1).getState().get(0), goalStack);
+      assertEquals(path.get(path.size() - 1).getStacks().get(0), goalStack);
     } catch (Exception e) {
       e.printStackTrace();
     }

@@ -3,40 +3,30 @@ package com.ymmihw.algorithms;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class State {
-  private List<Stack<String>> state;
+  private final List<Stack<String>> stacks;
   private int heuristics;
 
-  public State(List<Stack<String>> state) {
-    this.state = state;
+  public State(List<Stack<String>> stacks) {
+    this(stacks, 0);
   }
 
-  State(List<Stack<String>> state, int heuristics) {
-    this.state = state;
+  public State(List<Stack<String>> stacks, int heuristics) {
+    this.stacks = stacks;
     this.heuristics = heuristics;
   }
 
-  State(State state) {
-    if (state != null) {
-      this.state = new ArrayList<>();
-      for (Stack<String> s : state.getState()) {
-        Stack<String> s1 = (Stack<String>) s.clone();
-        this.state.add(s1);
-      }
-      this.heuristics = state.getHeuristics();
+  public State(State state) {
+    this.stacks = new ArrayList<>();
+    for (Stack<String> s : state.getStacks()) {
+      Stack<String> s1 = (Stack<String>) s.clone();
+      this.stacks.add(s1);
     }
-  }
-
-  public List<Stack<String>> getState() {
-    return state;
-  }
-
-  public int getHeuristics() {
-    return heuristics;
-  }
-
-  public void setHeuristics(int heuristics) {
-    this.heuristics = heuristics;
+    this.heuristics = state.getHeuristics();
   }
 }

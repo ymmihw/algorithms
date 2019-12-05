@@ -22,7 +22,7 @@ public class HillClimbing {
   }
 
   private static void printEachStep(State state) {
-    List<Stack<String>> stackList = state.getState();
+    List<Stack<String>> stackList = state.getStacks();
     System.out.println("----------------");
     stackList.forEach(stack -> {
       while (!stack.isEmpty()) {
@@ -54,7 +54,7 @@ public class HillClimbing {
 
     State currentState = initState;
     boolean noStateFound = false;
-    while (!currentState.getState().get(0).equals(goalStateStack) || noStateFound) {
+    while (!currentState.getStacks().get(0).equals(goalStateStack) || noStateFound) {
       noStateFound = true;
       State nextState = findNextState(currentState, goalStateStack);
       if (nextState != null) {
@@ -71,7 +71,7 @@ public class HillClimbing {
    * This method finds new state from current state based on goal and heuristics
    */
   public State findNextState(State currentState, Stack<String> goalStateStack) {
-    List<Stack<String>> listOfStacks = currentState.getState();
+    List<Stack<String>> listOfStacks = currentState.getStacks();
     int currentStateHeuristics = currentState.getHeuristics();
 
     return listOfStacks.stream().map(stack -> {
