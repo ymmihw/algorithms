@@ -84,11 +84,14 @@ public class AntColonyOptimization {
     System.out.println("Best tour length: " + (bestTourLength - numberOfCities));
     System.out.println("Best tour order: " + Arrays.toString(bestTourOrder));
 
+    double length = 0;
     for (int i = 0; i < bestTourOrder.length - 1; i++) {
       System.out.print(graph[bestTourOrder[i]][bestTourOrder[i + 1]] + " ");
+      length += graph[bestTourOrder[i]][bestTourOrder[i + 1]];
     }
+    System.out.println(graph[bestTourOrder[bestTourOrder.length - 1]][bestTourOrder[0]]);
 
-    System.out.println(graph[bestTourOrder[0]][bestTourOrder[bestTourOrder.length - 1]]);
+    System.out.println(length + graph[bestTourOrder[bestTourOrder.length - 1]][bestTourOrder[0]]);
 
     return bestTourOrder.clone();
   }
