@@ -9,23 +9,22 @@ import java.util.stream.IntStream;
 
 public class AntColonyOptimization {
 
-  private double c = 1.0;
-  private double alpha = 1;
-  private double beta = 5;
-  private double evaporation = 0.5;
-  private double Q = 500;
-  private double antFactor = 0.8;
-  private double randomFactor = 0.01;
+  private final double c = 1.0;
+  private final double alpha = 1;
+  private final double beta = 5;
+  private final double evaporation = 0.5;
+  private final double Q = 500;
+  private final double antFactor = 0.8;
+  private final double randomFactor = 0.01;
 
-  private int maxIterations = 1000;
+  private final int maxIterations = 1000;
 
-  private int numberOfCities;
-  private int numberOfAnts;
-  private double graph[][];
-  private double trails[][];
-  private List<Ant> ants = new ArrayList<>();
-  private Random random = new Random();
-  private double probabilities[];
+  private final int numberOfCities;
+  private final int numberOfAnts;
+  private final double graph[][];
+  private final double trails[][];
+  private final List<Ant> ants = new ArrayList<>();
+  private final Random random = new Random();
 
   private int currentIndex;
 
@@ -34,12 +33,21 @@ public class AntColonyOptimization {
 
   public AntColonyOptimization(int noOfCities) {
     graph = generateRandomMatrix(noOfCities);
+    printGraph();
     numberOfCities = graph.length;
     numberOfAnts = (int) (numberOfCities * antFactor);
 
     trails = new double[numberOfCities][numberOfCities];
-    probabilities = new double[numberOfCities];
     IntStream.range(0, numberOfAnts).forEach(i -> ants.add(new Ant(numberOfCities)));
+  }
+
+  private void printGraph() {
+    for (int i = 0; i < graph.length; i++) {
+      for (int j = 0; j < graph.length; j++) {
+        System.out.print(graph[i][j] + " ");
+      }
+      System.out.println();
+    }
   }
 
   /**
@@ -68,13 +76,20 @@ public class AntColonyOptimization {
   public int[] solve() {
     setupAnts();
     clearTrails();
-    IntStream.range(0, maxIterations).forEach(i -> {
+    for (int i = 0; i < maxIterations; i++) {
       moveAnts();
       updateTrails();
       updateBest();
-    });
+    }
     System.out.println("Best tour length: " + (bestTourLength - numberOfCities));
     System.out.println("Best tour order: " + Arrays.toString(bestTourOrder));
+
+    for (int i = 0; i < bestTourOrder.length - 1; i++) {
+      System.out.print(graph[bestTourOrder[i]][bestTourOrder[i + 1]] + " ");
+    }
+
+    System.out.println(graph[bestTourOrder[0]][bestTourOrder[bestTourOrder.length - 1]]);
+
     return bestTourOrder.clone();
   }
 
@@ -82,12 +97,10 @@ public class AntColonyOptimization {
    * Prepare ants for the simulation
    */
   private void setupAnts() {
-    IntStream.range(0, numberOfAnts).forEach(i -> {
-      ants.forEach(ant -> {
-        ant.clear();
-        ant.visitCity(-1, random.nextInt(numberOfCities));
-      });
-    });
+    for (Ant ant : ants) {
+      ant.clear();
+      ant.visitCity(-1, random.nextInt(numberOfCities));
+    }
     currentIndex = 0;
   }
 
@@ -95,10 +108,10 @@ public class AntColonyOptimization {
    * At each iteration, move ants
    */
   private void moveAnts() {
-    IntStream.range(currentIndex, numberOfCities - 1).forEach(i -> {
+    for (int i = currentIndex; i < numberOfCities - 1; i++) {
       ants.forEach(ant -> ant.visitCity(currentIndex, selectNextCity(ant)));
       currentIndex++;
-    });
+    }
   }
 
   /**
@@ -113,7 +126,7 @@ public class AntColonyOptimization {
         return cityIndex.getAsInt();
       }
     }
-    calculateProbabilities(ant);
+    double[] probabilities = calculateProbabilities(ant);
     double r = random.nextDouble();
     double total = 0;
     for (int i = 0; i < numberOfCities; i++) {
@@ -128,8 +141,10 @@ public class AntColonyOptimization {
 
   /**
    * Calculate the next city picks probabilites
+   * 
+   * @return
    */
-  public void calculateProbabilities(Ant ant) {
+  private double[] calculateProbabilities(Ant ant) {
     int i = ant.trail[currentIndex];
     double pheromone = 0.0;
     for (int l = 0; l < numberOfCities; l++) {
@@ -137,6 +152,8 @@ public class AntColonyOptimization {
         pheromone += Math.pow(trails[i][l], alpha) * Math.pow(1.0 / graph[i][l], beta);
       }
     }
+
+    double[] probabilities = new double[numberOfCities];
     for (int j = 0; j < numberOfCities; j++) {
       if (ant.visited(j)) {
         probabilities[j] = 0.0;
@@ -145,6 +162,7 @@ public class AntColonyOptimization {
         probabilities[j] = numerator / pheromone;
       }
     }
+    return probabilities;
   }
 
   /**
@@ -185,9 +203,10 @@ public class AntColonyOptimization {
    * Clear trails after simulation
    */
   private void clearTrails() {
-    IntStream.range(0, numberOfCities).forEach(i -> {
-      IntStream.range(0, numberOfCities).forEach(j -> trails[i][j] = c);
-    });
+    for (int i = 0; i < numberOfCities; i++) {
+      for (int j = 0; j < numberOfCities; j++) {
+        trails[i][j] = c;
+      }
+    }
   }
-
 }

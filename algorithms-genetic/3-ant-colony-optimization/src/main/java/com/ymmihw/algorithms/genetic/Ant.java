@@ -33,5 +33,4 @@ public class Ant {
     for (int i = 0; i < trailSize; i++)
       visited[i] = false;
   }
-
 }
