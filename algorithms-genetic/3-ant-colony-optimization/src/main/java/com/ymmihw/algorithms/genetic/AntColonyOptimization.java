@@ -80,7 +80,13 @@ public class AntColonyOptimization {
       moveAnts();
       updateTrails();
       updateBest();
+      System.out.println(bestTourLength);
     }
+    printResult();
+    return bestTourOrder.clone();
+  }
+
+  private void printResult() {
     System.out.println("Best tour length: " + (bestTourLength - numberOfCities));
     System.out.println("Best tour order: " + Arrays.toString(bestTourOrder));
 
@@ -92,8 +98,6 @@ public class AntColonyOptimization {
     System.out.println(graph[bestTourOrder[bestTourOrder.length - 1]][bestTourOrder[0]]);
 
     System.out.println(length + graph[bestTourOrder[bestTourOrder.length - 1]][bestTourOrder[0]]);
-
-    return bestTourOrder.clone();
   }
 
   /**
@@ -177,12 +181,12 @@ public class AntColonyOptimization {
         trails[i][j] *= evaporation;
       }
     }
-    for (Ant a : ants) {
-      double contribution = Q / a.trailLength(graph);
+    for (Ant ant : ants) {
+      double contribution = Q / ant.trailLength(graph);
       for (int i = 0; i < numberOfCities - 1; i++) {
-        trails[a.trail[i]][a.trail[i + 1]] += contribution;
+        trails[ant.trail[i]][ant.trail[i + 1]] += contribution;
       }
-      trails[a.trail[numberOfCities - 1]][a.trail[0]] += contribution;
+      trails[ant.trail[numberOfCities - 1]][ant.trail[0]] += contribution;
     }
   }
 
@@ -194,10 +198,10 @@ public class AntColonyOptimization {
       bestTourOrder = ants.get(0).trail;
       bestTourLength = ants.get(0).trailLength(graph);
     }
-    for (Ant a : ants) {
-      if (a.trailLength(graph) < bestTourLength) {
-        bestTourLength = a.trailLength(graph);
-        bestTourOrder = a.trail.clone();
+    for (Ant ant : ants) {
+      if (ant.trailLength(graph) < bestTourLength) {
+        bestTourLength = ant.trailLength(graph);
+        bestTourOrder = ant.trail.clone();
       }
     }
   }

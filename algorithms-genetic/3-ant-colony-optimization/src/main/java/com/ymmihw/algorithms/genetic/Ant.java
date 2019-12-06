@@ -2,9 +2,9 @@ package com.ymmihw.algorithms.genetic;
 
 public class Ant {
 
-  protected int trailSize;
-  protected int trail[];
-  protected boolean visited[];
+  protected final int trailSize;
+  protected final int trail[];
+  protected final boolean visited[];
 
   public Ant(int tourSize) {
     this.trailSize = tourSize;
