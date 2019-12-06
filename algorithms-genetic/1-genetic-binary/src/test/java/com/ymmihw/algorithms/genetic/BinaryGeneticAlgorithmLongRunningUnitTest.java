@@ -1,4 +1,4 @@
-package com.ymmihw.algorithms;
+package com.ymmihw.algorithms.genetic;
 
 import org.junit.Assert;
 import org.junit.Test;

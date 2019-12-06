@@ -1,4 +1,4 @@
-package com.ymmihw.algorithms;
+package com.ymmihw.algorithms.genetic;
 
 import java.util.ArrayList;
 import java.util.List;

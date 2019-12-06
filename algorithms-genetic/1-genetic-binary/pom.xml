@@ -7,8 +7,8 @@
   <artifactId>algorithms-genetic</artifactId>
   <version>0.0.1-SNAPSHOT</version>
  </parent>
- <artifactId>genetic-binary</artifactId>
- <name>genetic-binary</name>
+ <artifactId>1-genetic-binary</artifactId>
+ <name>1-genetic-binary</name>
  <url>http://maven.apache.org</url>
  <properties>
   <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -21,4 +21,4 @@ optaplanner-cloud-balancing | [Getting Started: A Cloud Balancing Demonstration]
 
 Module | Article
 --|--
-genetic-binary | [Design a Genetic Algorithm in Java](https://www.baeldung.com/java-genetic-algorithm)
+1-genetic-binary | [Design a Genetic Algorithm in Java](https://www.baeldung.com/java-genetic-algorithm)
