@@ -15,22 +15,16 @@ public class SimulatedAnnealing {
     Travel bestSolution = travel;
     Travel currentSolution = bestSolution;
 
-    for (int i = 0; i < numberOfIterations; i++) {
-      if (t > 0.1) {
-        currentSolution.swapCities();
-        double currentDistance = currentSolution.getDistance();
-        if (currentDistance < bestDistance) {
-          bestDistance = currentDistance;
-        } else if (Math.exp((bestDistance - currentDistance) / t) < Math.random()) {
-          currentSolution.revertSwap();
-        }
-        t *= coolingRate;
-      } else {
-        continue;
+    for (int i = 0; i < numberOfIterations && t > 0.1; i++) {
+      currentSolution.swapCities();
+      double currentDistance = currentSolution.getDistance();
+      if (currentDistance < bestDistance) {
+        bestDistance = currentDistance;
+      } else if (Math.exp((bestDistance - currentDistance) / t) < Math.random()) {
+        currentSolution.revertSwap();
       }
-      if (i % 100 == 0) {
-        System.out.println("Iteration #" + i);
-      }
+      t *= coolingRate;
+      System.out.println("Iteration #" + i + " bestDistance is " + bestDistance);
     }
     return bestDistance;
   }
