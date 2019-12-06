@@ -17,7 +17,7 @@ public class AntColonyOptimization {
   private final double antFactor = 0.8;
   private final double randomFactor = 0.01;
 
-  private final int maxIterations = 1000;
+  private final int maxIterations = 200;
 
   private final int numberOfCities;
   private final int numberOfAnts;
@@ -74,20 +74,19 @@ public class AntColonyOptimization {
    * Use this method to run the main logic
    */
   public int[] solve() {
-    setupAnts();
     clearTrails();
     for (int i = 0; i < maxIterations; i++) {
+      setupAnts();
       moveAnts();
       updateTrails();
       updateBest();
-      System.out.println(bestTourLength);
     }
     printResult();
     return bestTourOrder.clone();
   }
 
   private void printResult() {
-    System.out.println("Best tour length: " + (bestTourLength - numberOfCities));
+    System.out.println("Best tour length: " + bestTourLength);
     System.out.println("Best tour order: " + Arrays.toString(bestTourOrder));
 
     double length = 0;

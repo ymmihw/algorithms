@@ -3,8 +3,8 @@ package com.ymmihw.algorithms.genetic;
 public class Ant {
 
   protected final int trailSize;
-  protected final int trail[];
-  protected final boolean visited[];
+  protected int trail[];
+  protected boolean visited[];
 
   public Ant(int tourSize) {
     this.trailSize = tourSize;
@@ -30,7 +30,7 @@ public class Ant {
   }
 
   protected void clear() {
-    for (int i = 0; i < trailSize; i++)
-      visited[i] = false;
+    this.trail = new int[trailSize];
+    this.visited = new boolean[trailSize];
   }
 }
