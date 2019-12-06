@@ -18,5 +18,6 @@
  </dependencies>
  <modules>
   <module>1-genetic-binary</module>
+  <module>2-simulated-annealing</module>
  </modules>
 </project>

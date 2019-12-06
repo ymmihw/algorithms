@@ -22,3 +22,4 @@ optaplanner-cloud-balancing | [Getting Started: A Cloud Balancing Demonstration]
 Module | Article
 --|--
 1-genetic-binary | [Design a Genetic Algorithm in Java](https://www.baeldung.com/java-genetic-algorithm)
+2-simulated-annealing | [The Traveling Salesman Problem in Java](https://www.baeldung.com/java-simulated-annealing-for-traveling-salesman)
