@@ -19,5 +19,6 @@
  <modules>
   <module>1-genetic-binary</module>
   <module>2-simulated-annealing</module>
+  <module>3-ant-colony-optimization</module>
  </modules>
 </project>
