@@ -26,8 +26,6 @@ public class AntColonyOptimization {
   private final List<Ant> ants = new ArrayList<>();
   private final Random random = new Random();
 
-  private int currentIndex;
-
   private int[] bestTourOrder;
   private double bestTourLength;
 
@@ -107,23 +105,25 @@ public class AntColonyOptimization {
       ant.clear();
       ant.visitCity(-1, random.nextInt(numberOfCities));
     }
-    currentIndex = 0;
   }
 
   /**
    * At each iteration, move ants
    */
   private void moveAnts() {
-    for (int i = currentIndex; i < numberOfCities - 1; i++) {
-      ants.forEach(ant -> ant.visitCity(currentIndex, selectNextCity(ant)));
-      currentIndex++;
+    for (int currentIndex = 0; currentIndex < numberOfCities - 1; currentIndex++) {
+      for (Ant ant : ants) {
+        ant.visitCity(currentIndex, selectNextCity(ant, currentIndex));
+      }
     }
   }
 
   /**
    * Select next city for each ant
+   * 
+   * @param currentIndex
    */
-  private int selectNextCity(Ant ant) {
+  private int selectNextCity(Ant ant, int currentIndex) {
     int t = random.nextInt(numberOfCities - currentIndex);
     if (random.nextDouble() < randomFactor) {
       OptionalInt cityIndex =
@@ -132,7 +132,7 @@ public class AntColonyOptimization {
         return cityIndex.getAsInt();
       }
     }
-    double[] probabilities = calculateProbabilities(ant);
+    double[] probabilities = calculateProbabilities(ant, currentIndex);
     double r = random.nextDouble();
     double total = 0;
     for (int i = 0; i < numberOfCities; i++) {
@@ -148,9 +148,11 @@ public class AntColonyOptimization {
   /**
    * Calculate the next city picks probabilites
    * 
+   * @param currentIndex
+   * 
    * @return
    */
-  private double[] calculateProbabilities(Ant ant) {
+  private double[] calculateProbabilities(Ant ant, int currentIndex) {
     int i = ant.trail[currentIndex];
     double pheromone = 0.0;
     for (int l = 0; l < numberOfCities; l++) {
