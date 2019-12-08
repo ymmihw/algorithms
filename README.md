@@ -24,3 +24,4 @@ Module | Article
 1-genetic-binary | [Design a Genetic Algorithm in Java](https://www.baeldung.com/java-genetic-algorithm)
 2-simulated-annealing | [The Traveling Salesman Problem in Java](https://www.baeldung.com/java-simulated-annealing-for-traveling-salesman)
 3-ant-colony-optimization | [Ant Colony Optimization](https://www.baeldung.com/java-ant-colony-optimization)
+4-jenetics | [Introduction to Jenetics Library](https://www.baeldung.com/jenetics)
