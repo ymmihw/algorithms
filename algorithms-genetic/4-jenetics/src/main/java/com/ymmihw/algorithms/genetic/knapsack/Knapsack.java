@@ -6,18 +6,18 @@ import io.jenetics.BitGene;
 import io.jenetics.Genotype;
 
 public class Knapsack implements Function<Genotype<BitGene>, Double> {
-  private KnapsackItem[] items;
+  private Item[] items;
   private double size;
 
-  public Knapsack(KnapsackItem[] items, double size) {
+  public Knapsack(Item[] items, double size) {
     this.items = items;
     this.size = size;
   }
 
   @Override
   public Double apply(Genotype<BitGene> gt) {
-    KnapsackItem sum = ((BitChromosome) gt.getChromosome()).ones().mapToObj(i -> items[i])
-        .collect(KnapsackItem.toSum());
+    Item sum = ((BitChromosome) gt.getChromosome()).ones().mapToObj(i -> items[i])
+        .collect(Item.toSum());
     return sum.size <= this.size ? sum.value : 0;
   }
 }
